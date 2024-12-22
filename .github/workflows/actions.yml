@@ -9,19 +9,16 @@ jobs:
       matrix:
         python-version: ["3.12"]
         
-
     steps:
-      - run: cd
-      - uses: aabadie/action-install-python-requirements@v2.0.1
-        with:
-          requirements: .requirements.txt
-          update-pip: true
+  # this Action should follow steps to set up Python build environment
+    - name: Install Python dependencies
+      uses: py-actions/py-dependency-install@v4
       
-      - run: pytest flask_testing
-      - run: mypy .
-      - run: black --diff --check .
-      - run: flake8 .
-      - run: isort .
+    - run: pytest flask_testing
+    - run: mypy .
+    - run: black --diff --check .
+    - run: flake8 .
+    - run: isort .
 
       
 
