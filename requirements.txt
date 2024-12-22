@@ -1,0 +1,8 @@
+Flask==3.0.3
+Werzeug==3.0.4
+isort==5.13.2
+black==24.10.0
+flake8==7.1.1
+mypy==1.14.0
+pytest==8.3.4
+
