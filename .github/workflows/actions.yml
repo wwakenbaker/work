@@ -13,12 +13,22 @@ jobs:
         python-version: '3.12'
     - name: Install Python dependencies
       uses: py-actions/py-dependency-install@v4
-    - working-directory: main_app
-    - run: pytest flask_testing
-    - run: mypy .
-    - run: black --diff --check .
-    - run: flake8 .
-    - run: isort .
+    - name: Run pytest
+      working-directory: main_app
+      run: pytest flask_testing
+    - name: Run mypy
+      working-directory: main_app
+      run: mypy .
+    - name: Run black
+      working-directory: main_app
+      run: black --diff --check .
+    - name: Run flake8
+      working-directory: main_app
+      run: flake8 .
+    - name: Run isort
+      working-directory: main_app
+      run: isort .
+      
 
       
 
