@@ -11,7 +11,7 @@ jobs:
 
 
     steps:
-
+      - run: pip install -r requrements.txt
       - run: pytest flask_testing
       - run: mypy .
       - run: black --diff --check .
