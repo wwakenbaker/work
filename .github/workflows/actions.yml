@@ -1,24 +1,34 @@
-name: Run Unit Test via Pytest
+name: Run Test
 
 on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.12"]
-        
     steps:
-  # this Action should follow steps to set up Python build environment
+    - uses: actions/checkout@v3
+    - name: setup python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
     - name: Install Python dependencies
       uses: py-actions/py-dependency-install@v4
+    - name: Run pytest
+      working-directory: main_app
+      run: pytest flask_testing
+    - name: Run mypy
+      working-directory: main_app
+      run: mypy .
+    - name: Run black
+      working-directory: main_app
+      run: black --diff --check .
+    - name: Run flake8
+      working-directory: main_app
+      run: flake8 .
+    - name: Run isort
+      working-directory: main_app
+      run: isort .
       
-    - run: pytest flask_testing
-    - run: mypy .
-    - run: black --diff --check .
-    - run: flake8 .
-    - run: isort .
 
       
 
