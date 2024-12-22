@@ -37,7 +37,8 @@ def create_app():
         credit_card = request.form.get("credit_card", type=str)
         card_number = request.form.get("car_number", type=str)
         client = Client(
-            name=name, surname=surname, credit_card=credit_card, car_number=card_number
+            name=name, surname=surname,
+            credit_card=credit_card, car_number=card_number
         )
         db.session.add(client)
         db.session.commit()
@@ -56,7 +57,8 @@ def create_app():
         )
         db.session.add(parking)
         db.session.commit()
-        return {"Парковочная зона успешно добавлена, parking_id:": parking.id}, 201
+        return {"Парковочная зона успешно добавлена,"
+                " parking_id:": parking.id}, 201
 
     @app.route("/client_parking", methods=["POST"])
     def add_client_parking():
@@ -66,16 +68,20 @@ def create_app():
             parking = Parking.query.get(parking_id)
             if parking.opened and parking.count_available_places > 0:
                 user = ClientParking(
-                    client_id=client_id, parking_id=parking_id, time_in=datetime.now()
+                    client_id=client_id,
+                    parking_id=parking_id,
+                    time_in=datetime.now()
                 )
                 db.session.add(user)
                 parking.count_available_places -= 1
                 db.session.commit()
                 return {
-                    "Клиент успешно зарегистрирован в парковочной зоне, client_id:": user.id
+                    "Клиент успешно зарегистрирован в парковочной зоне,"
+                    " client_id:": user.id
                 }, 201
             else:
-                return {"error": "Парковочная зона закрыта или полностью занята"}, 403
+                return {"error": "Парковочная зона закрыта "
+                                 "или полностью занята"}, 403
         else:
             return {"error": "Парковочная зона не найдена"}, 404
 
@@ -96,13 +102,14 @@ def create_app():
                     parking.count_available_places += 1
                     db.session.commit()
                     return {
-                        "Клиент успешно сдал парковочную зону, client_id:": client_id
+                        "Клиент успешно сдал парковочную зону, "
+                        "client_id:": client_id
                     }, 200
                 else:
                     return {"error": "Клиент не имеет кредитной карты"}, 403
             else:
-                return {"error": "Связи с клиентом и парковочной зоной не найдены"}, 404
+                return {"error": "Связи не найдены"}, 404
         else:
-            return {"error": "Парковочная зона не найдена"}, 404
+            return {"error": "Парковка не найдена"}, 404
 
     return app

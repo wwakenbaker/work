@@ -20,7 +20,8 @@ def app():
             car_number="1234567890",
         )
         parking = Parking(
-            address="address", opened=True, count_places=10, count_available_places=10
+            address="address", opened=True,
+            count_places=10, count_available_places=10
         )
         client_parking = ClientParking(
             client_id=1, parking_id=1, time_in=datetime.now(), time_out=None
