@@ -24,7 +24,7 @@ jobs:
       run: black --diff --check .
     - name: Run flake8
       working-directory: main_app
-      run: flake8 .
+      run: flake8 . --max-line-length 88
     - name: Run isort
       working-directory: main_app
       run: isort .
