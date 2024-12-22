@@ -45,8 +45,7 @@ def test_add_client_parking(client):
     }  # datetime.now()
     rv = client.post("/client_parking", data=data)
     check = (
-        _db.session.query(ClientParking)
-        .filter_by(client_id=1, parking_id=1).first().id
+        _db.session.query(ClientParking).filter_by(client_id=1, parking_id=1).first().id
     )
     assert rv.status_code == 201
     assert check == 1
@@ -56,13 +55,11 @@ def test_add_client_parking(client):
 def test_delete_client_parking(client):
     data = {"client_id": 1, "parking_id": 1}  # datetime.now()
     places_before = (
-        _db.session.query(Parking)
-        .filter_by(id=1).first().count_available_places
+        _db.session.query(Parking).filter_by(id=1).first().count_available_places
     )
     rv = client.delete("/client_parking", data=data)
     places_after = (
-        _db.session.query(Parking).
-        filter_by(id=1).first().count_available_places
+        _db.session.query(Parking).filter_by(id=1).first().count_available_places
     )
     assert rv.status_code == 200
     assert places_after - 1 == places_before
