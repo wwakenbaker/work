@@ -8,10 +8,14 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.12"]
-
+        
 
     steps:
-      - run: pip install -e .
+      - uses: aabadie/action-install-python-requirements@v2.0.1
+        with:
+          requirements: requirements.txt
+          update-pip: true
+        
       - run: pytest flask_testing
       - run: mypy .
       - run: black --diff --check .
