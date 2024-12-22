@@ -6,8 +6,9 @@ if TYPE_CHECKING:
 else:
     Model = db.Model
 
+
 class Client(Model):
-    __tablename__ = 'client'
+    __tablename__ = "client"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
@@ -21,8 +22,9 @@ class Client(Model):
     def to_json(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
+
 class Parking(Model):
-    __tablename__ = 'parking'
+    __tablename__ = "parking"
 
     id = db.Column(db.Integer, primary_key=True)
     address = db.Column(db.String(100), nullable=False)
@@ -36,12 +38,13 @@ class Parking(Model):
     def to_json(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
+
 class ClientParking(Model):
-    __tablename__ = 'client_parking'
+    __tablename__ = "client_parking"
 
     id = db.Column(db.Integer, primary_key=True)
-    client_id = db.Column(db.Integer, db.ForeignKey('client.id'))
-    parking_id = db.Column(db.Integer, db.ForeignKey('parking.id'))
+    client_id = db.Column(db.Integer, db.ForeignKey("client.id"))
+    parking_id = db.Column(db.Integer, db.ForeignKey("parking.id"))
     time_in = db.Column(db.DateTime)
     time_out = db.Column(db.DateTime)
 
@@ -50,6 +53,3 @@ class ClientParking(Model):
 
     def to_json(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
-
-
-
