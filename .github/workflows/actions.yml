@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: aabadie/action-install-python-requirements@v2.0.1
         with:
-          requirements: requirements.txt
+          requirements: .requirements.txt
           update-pip: true
         
       - run: pytest flask_testing
