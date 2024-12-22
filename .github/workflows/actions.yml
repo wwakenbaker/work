@@ -1,0 +1,22 @@
+name: Run Unit Test via Pytest
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12"]
+
+
+    steps:
+      - run: pip install -r requrements.txt
+      - run: pytest flask_testing
+      - run: mypy .
+      - run: black --diff --check .
+      - run: flake8 .
+      - run: isort .
+
+      
+
