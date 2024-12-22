@@ -2,7 +2,6 @@ from datetime import datetime
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 
-
 db = SQLAlchemy()
 
 def create_app():
